@@ -1,38 +1,92 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
+import React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import './clientes_registro.css'; 
+import "./clientes_registro.css";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { useState } from "react";
 
 
 const validationSchema = yup.object({
   email: yup
-    .string('Enter your email')
-    .email('Enter a valid email')
-    .required('Email is required'),
+    .string("Ingrese su correo")
+    .email("Ingrese un correo válido")
+    .required("Correo requerido"),
   password: yup
-    .string('Enter your password')
-    .min(8, 'Password should be of minimum 8 characters length')
-    .required('Password is required'),
-  name: yup
-    .string('Enter your name')
-    .min(3, 'Name should be at least 3 characters')
-    .required('Name is required'),
+    .string("Ingrese su contraseña")
+    .min(8, "La contraseña debe ser de 8 cáracteres como mínimo")
+    .required("La contraseña es requerida"),
+  name: yup.string("Ingrese su nombre").required("El nombre es requerido"),
 });
 
-const  Registro_clientes = () => {
+const Registro_clientes = () => {
+  const [position, setPosition] = useState(null);
+
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
-      name: '',
+      email: "",
+      password: "",
+      name: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  //Mapa de Leaflet
+  React.useEffect(() => {
+    
+    //Mapa por defecto
+    const map = L.map("map").setView([9.9368, -84.0852], 8);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    //Marcador 
+    let marker;
+
+    // Capturar el Click
+    map.on("click", function (e) {
+      const { lat, lng } = e.latlng; // Obtener latitud y longitud
+      setPosition({ lat, lng }); // Guardar en el estado
+
+      // Añadir o mover el marcador al hacer clic
+      if (marker) {
+        marker.setLatLng([lat, lng]);
+      } else {
+        marker = L.marker([lat, lng]).addTo(map);
+      }
+    });
+
+    // Cleanup del mapa
+    return () => {
+      map.remove();
+    };
+  }, []);
+
+
+  //Funcion que despliega el mapa
+  function Display_map() {
+
+    return (
+      <div>
+        <h4 id="map_tittle">Selecciona tu ubicación</h4>
+        <div
+          id="map"
+          style={{
+            height: "350px",
+            width: "100%",
+            marginBottom: "20px",
+          }}
+        ></div>
+      </div>
+    );
+  }
 
   return (
     <div className="form-container">
@@ -80,10 +134,19 @@ const  Registro_clientes = () => {
           margin="normal"
         />
 
-        <Button color="primary" variant="contained" fullWidth type="submit" style={{ marginTop: '20px' }}>
+        {/* Botón de Enviar */}
+        <Button
+          color="primary"
+          variant="contained"
+          fullWidth
+          type="submit"
+          style={{ marginTop: "20px" }}
+          onClick={(e)=>console.log(position)}
+        >
           Registrar
         </Button>
       </form>
+      <div className="map_container">{Display_map()}</div>
     </div>
   );
 };
