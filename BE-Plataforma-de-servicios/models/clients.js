@@ -4,6 +4,9 @@ module.exports = (sequelize) => {
   class Clients extends Model {
     static associate(models) {
       this.hasMany(models.Users, { foreignKey: "client_id" });
+      this.hasMany(models.Messages, { foreignKey: "client_id" });
+      this.hasMany(models.Requests, { foreignKey: "client_id" });
+      this.hasMany(models.Contracts_by_provider, { foreignKey: "client_id" });
     }
   }
   Clients.init(
@@ -25,7 +28,7 @@ module.exports = (sequelize) => {
       longitude: {
         type: DataTypes.INTEGER,
         allowNull: false,
-      }
+      },
     },
     {
       sequelize,
