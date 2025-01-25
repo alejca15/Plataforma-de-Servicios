@@ -1,0 +1,63 @@
+/* Centrar el contenedor del formulario */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9; /* Color claro y moderno */
+  }
+  
+  /* Estilo del formulario */
+  .login-form {
+    width: 100%;
+    height: 400px;
+    max-width: 400px; /* Limitar el ancho del formulario */
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco para el formulario */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra elegante */
+  }
+  
+  /* Título del formulario */
+  .form-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #333333;
+    margin-bottom: 20px;
+  }
+  
+  /* Espaciado entre los campos */
+  .MuiTextField-root {
+    margin-bottom: 20px;
+  }
+  
+  /* Botón de envío */
+  .MuiButton-containedPrimary {
+    background-color: #3f51b5; /* Color primario */
+  }
+  
+  .MuiButton-containedPrimary:hover {
+    background-color: #303f9f; /* Más oscuro al pasar el mouse */
+  }
+  
+  .links-container {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .link {
+    display: inline-block;
+    margin: 10px;
+    color: #3f51b5;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .link:hover {
+    color: #303f9f;
+    text-decoration: underline;
+  }
+  
