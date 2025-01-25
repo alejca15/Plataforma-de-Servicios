@@ -31,7 +31,7 @@ const validationSchema = yup.object({
 const Login_provedor = () => {
   const [position, setPosition] = useState(null);
 
-  const no_location_toast=toast.error("Selecciona una ubicación");
+  const no_location_toast = () => toast.error("Selecciona una ubicación");
 
   const navigate = useNavigate();
   const formik = useFormik({
@@ -42,8 +42,14 @@ const Login_provedor = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      
+      if (!position) {
+        no_location_toast();
+        return;
+      }
+
       post_user();
-      return navigate("/")
+      return navigate("/");
     },
   });
 
@@ -99,10 +105,6 @@ const Login_provedor = () => {
   const post_user = async () => {
     try {
       const { provider_name, email, password } = formik.values;
-
-      if (!position) {
-        return no_location_toast();
-      }
 
       const new_provider = {
         name: provider_name,
@@ -175,11 +177,11 @@ const Login_provedor = () => {
           id="provider_name"
           name="provider_name"
           label="Nombre"
-          value={formik.values.name}
+          value={formik.values.provider_name}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
+          error={formik.touched.provider_name && Boolean(formik.errors.provider_name)}
+          helperText={formik.touched.provider_name && formik.errors.provider_name}
           margin="normal"
         />
 

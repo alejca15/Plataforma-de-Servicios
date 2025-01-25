@@ -4,6 +4,9 @@ import axios from "axios";
 const post_client = async (client_data) => {
   try {
     const response = await axios.post("http://localhost:3000/clients", client_data);
+   if (!response) {
+    throw error;
+   }
     return response.data;
   } catch (error) {
     console.error("Error posting client", error);
