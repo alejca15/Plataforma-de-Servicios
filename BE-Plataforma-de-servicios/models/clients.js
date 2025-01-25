@@ -5,6 +5,8 @@ module.exports = (sequelize) => {
     static associate(models) {
       this.hasMany(models.Users, { foreignKey: "client_id" });
       this.hasMany(models.Messages, { foreignKey: "client_id" });
+      this.hasMany(models.Requests, { foreignKey: "client_id" });
+      this.hasMany(models.Contracts_by_provider, { foreignKey: "client_id" });
     }
   }
   Clients.init(

@@ -5,6 +5,7 @@ module.exports = (sequelize) => {
     static associate(models) {
       this.belongsTo(models.Providers, { foreignKey: "provider_id" });
       this.belongsTo(models.Clients, { foreignKey: "client_id" });
+      this.belongsTo(models.Requests, { foreignKey: "request_id" });
     }
   }
   Contracs_by_provider.init(
