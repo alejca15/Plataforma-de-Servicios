@@ -22,11 +22,11 @@ module.exports = (sequelize) => {
         unique: true,
       },
       latitude: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       longitude: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
     },

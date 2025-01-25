@@ -1,33 +1,36 @@
-/* import React from 'react';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
+
+import React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import './login.css'; // Archivo CSS externo
-import { Link } from 'react-router-dom'; // Importar Link de react-router-dom
+import "./login.css"; // Archivo CSS externo
+import { Link } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup
-    .string('Enter your email')
-    .email('Enter a valid email')
-    .required('Email is required'),
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
   password: yup
-    .string('Enter your password')
-    .min(8, 'Password should be of minimum 8 characters length')
-    .required('Password is required'),
+    .string("Enter your password")
+    .min(8, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
 });
 
 const Login_form = () => {
+
   const formik = useFormik({
     initialValues: {
-      email: 'foobar@example.com',
-      password: 'foobar',
+      email: "foobar@example.com",
+      password: "foobar",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
 
   return (
     <div className="login-container">
@@ -60,10 +63,15 @@ const Login_form = () => {
           Submit
         </Button>
         <div className="links-container">
-          <Link to="/provedores" className="link">Ir a Proveedores</Link>
-          <Link to="/clientes" className="link">Ir a Clientes</Link>
+          <Link to="/provedores" className="link">
+            Ir a Proveedores
+          </Link>
+          <Link to="/clientes" className="link">
+            Ir a Clientes
+          </Link>
         </div>
-      </form> 
+      </form>
+
     </div>
   );
 };
