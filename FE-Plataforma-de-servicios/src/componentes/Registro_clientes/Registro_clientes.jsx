@@ -9,6 +9,8 @@ import "leaflet/dist/leaflet.css";
 import { useState } from "react";
 import Client_services from "../../services/Client_services";
 import User_services from "../../services/User_services";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const validationSchema = yup.object({
   email: yup
@@ -19,7 +21,10 @@ const validationSchema = yup.object({
     .string("Ingrese su contraseña")
     .min(8, "La contraseña debe ser de 8 cáracteres como mínimo")
     .required("La contraseña es requerida"),
-  name: yup.string("Ingrese su nombre").required("El nombre es requerido"),
+  client_name: yup
+    .string("Ingrese su nombre")
+    .required("El nombre es requerido"),
+
   lastname: yup
     .string("Ingrese su Apellido")
     .required("El apellido no ha sido ingresado"),
@@ -39,10 +44,13 @@ const Registro_clientes = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      console.log("Entre");
+
       if (!position) {
         no_location_toast();
         return;
       }
+      create_client();
     },
   });
 
@@ -96,6 +104,8 @@ const Registro_clientes = () => {
   }
 
   const create_client = async () => {
+    console.log("Entre a la funcion");
+
     try {
       const new_client = {
         name: client_name,
@@ -165,7 +175,7 @@ const Registro_clientes = () => {
           value={formik.values.client_name}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.touched.name && Boolean(formik.errors.client_name)}
+          error={formik.touched.client_name && Boolean(formik.errors.client_name)}
           helperText={formik.touched.client_name && formik.errors.client_name}
           margin="normal"
         />
@@ -178,8 +188,8 @@ const Registro_clientes = () => {
           value={formik.values.lastname}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
+          error={formik.touched.lastname && Boolean(formik.errors.lastname)}
+          helperText={formik.touched.lastname && formik.errors.lastname}
           margin="normal"
         />
 
@@ -195,6 +205,7 @@ const Registro_clientes = () => {
         </Button>
       </form>
       <div className="map_container">{Display_map()}</div>
+      <ToastContainer />
     </div>
   );
 };
