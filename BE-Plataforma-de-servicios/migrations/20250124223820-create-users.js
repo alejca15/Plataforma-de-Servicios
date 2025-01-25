@@ -24,7 +24,7 @@ module.exports = {
       },
       provider_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references:{
           model:"Providers",
           key:"id",
@@ -32,7 +32,7 @@ module.exports = {
       },
       client_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references:{
           model:"Clients",
           key:"id",
