@@ -7,7 +7,8 @@ import "./clientes_registro.css";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useState } from "react";
-
+import Client_services from "../../services/Client_services";
+import User_services from "../../services/User_services";
 
 const validationSchema = yup.object({
   email: yup
@@ -19,26 +20,34 @@ const validationSchema = yup.object({
     .min(8, "La contraseña debe ser de 8 cáracteres como mínimo")
     .required("La contraseña es requerida"),
   name: yup.string("Ingrese su nombre").required("El nombre es requerido"),
+  lastname: yup
+    .string("Ingrese su Apellido")
+    .required("El apellido no ha sido ingresado"),
 });
 
 const Registro_clientes = () => {
   const [position, setPosition] = useState(null);
 
+  const no_location_toast = () => toast.error("Selecciona una ubicación");
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
-      name: "",
+      client_name: "",
+      lastname: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      if (!position) {
+        no_location_toast();
+        return;
+      }
     },
   });
 
   //Mapa de Leaflet
   React.useEffect(() => {
-    
     //Mapa por defecto
     const map = L.map("map").setView([9.9368, -84.0852], 8);
 
@@ -47,7 +56,7 @@ const Registro_clientes = () => {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    //Marcador 
+    //Marcador
     let marker;
 
     // Capturar el Click
@@ -69,10 +78,8 @@ const Registro_clientes = () => {
     };
   }, []);
 
-
   //Funcion que despliega el mapa
   function Display_map() {
-
     return (
       <div>
         <h4 id="map_tittle">Selecciona tu ubicación</h4>
@@ -88,12 +95,41 @@ const Registro_clientes = () => {
     );
   }
 
+  const create_client = async () => {
+    try {
+      const new_client = {
+        name: client_name,
+        lastname,
+        latitude: position.lat,
+        longitude: position.lng,
+      };
+      const client_created = await Client_services.post_client(new_client);
+      if (!client_created) {
+        return console.error(error);
+      }
+
+      const new_user = {
+        mail: email,
+        password: password,
+        rol: "Cliente",
+        client_id: client_created.client.id,
+        provider_id: null,
+      };
+
+      const user_posted = await User_services.post_user(new_user);
+      if (!user_posted) {
+        return console.error(error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="form-container">
       <form onSubmit={formik.handleSubmit} className="user-form">
         <h2 className="form-title">Registro</h2>
 
-    
         <TextField
           fullWidth
           id="email"
@@ -120,13 +156,26 @@ const Registro_clientes = () => {
           helperText={formik.touched.password && formik.errors.password}
           margin="normal"
         />
-    
+
         <TextField
           fullWidth
-          id="name"
-          name="name"
+          id="client_name"
+          name="client_name"
           label="Nombre"
-          value={formik.values.name}
+          value={formik.values.client_name}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.name && Boolean(formik.errors.client_name)}
+          helperText={formik.touched.client_name && formik.errors.client_name}
+          margin="normal"
+        />
+
+        <TextField
+          fullWidth
+          id="lastname"
+          name="lastname"
+          label="Apellido"
+          value={formik.values.lastname}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.name && Boolean(formik.errors.name)}
@@ -141,7 +190,6 @@ const Registro_clientes = () => {
           fullWidth
           type="submit"
           style={{ marginTop: "20px" }}
-          onClick={(e)=>console.log(position)}
         >
           Registrar
         </Button>
