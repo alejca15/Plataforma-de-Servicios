@@ -9,7 +9,6 @@ import "leaflet/dist/leaflet.css";
 import { useState } from "react";
 
 
-// Validaciones con Yup
 const validationSchema = yup.object({
   email: yup
     .string("Ingrese su correo")
@@ -94,7 +93,7 @@ const Registro_clientes = () => {
       <form onSubmit={formik.handleSubmit} className="user-form">
         <h2 className="form-title">Registro</h2>
 
-        {/* Campo de Correo */}
+    
         <TextField
           fullWidth
           id="email"
@@ -108,7 +107,6 @@ const Registro_clientes = () => {
           margin="normal"
         />
 
-        {/* Campo de Contraseña */}
         <TextField
           fullWidth
           id="password"
@@ -122,8 +120,7 @@ const Registro_clientes = () => {
           helperText={formik.touched.password && formik.errors.password}
           margin="normal"
         />
-
-        {/* Campo de Nombre */}
+    
         <TextField
           fullWidth
           id="name"
