@@ -32,7 +32,7 @@ const Login_provedor = () => {
   const [position, setPosition] = useState(null);
 
   const no_location_toast = () => toast.error("Selecciona una ubicación");
-
+ const user_added = () => toast.success("Usuario creado");
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -49,7 +49,10 @@ const Login_provedor = () => {
       }
 
       post_user();
-      return navigate("/");
+      user_added();
+      setTimeout(() => {
+        navigate("/");
+      }, 3000); 
     },
   });
 
