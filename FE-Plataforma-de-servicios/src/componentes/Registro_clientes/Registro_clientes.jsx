@@ -30,10 +30,7 @@ const validationSchema = yup.object({
     .required("El apellido no ha sido ingresado"),
 });
 
-const Registro_clientes = () => {
-  const [position, setPosition] = useState(null);
-
-  const no_location_toast = () => toast.error("Selecciona una ubicación");
+const   Registro_clientes = () => {
   const user_added = () => toast.success("Usuario creado");
 
   const navigate = useNavigate();
@@ -47,8 +44,6 @@ const Registro_clientes = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("Entre");
-
       if (!position) {
         no_location_toast();
         return;
@@ -57,72 +52,19 @@ const Registro_clientes = () => {
       user_added();
       setTimeout(() => {
         navigate("/");
-      }, 3000); 
+      }, 3000);
     },
   });
 
-  //Mapa de Leaflet
-  React.useEffect(() => {
-    //Mapa por defecto
-    const map = L.map("map").setView([9.9368, -84.0852], 8);
-
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map);
-
-    //Marcador
-    let marker;
-
-    // Capturar el Click
-    map.on("click", function (e) {
-      const { lat, lng } = e.latlng; // Obtener latitud y longitud
-      setPosition({ lat, lng }); // Guardar en el estado
-
-      // Añadir o mover el marcador al hacer clic
-      if (marker) {
-        marker.setLatLng([lat, lng]);
-      } else {
-        marker = L.marker([lat, lng]).addTo(map);
-      }
-    });
-
-    // Cleanup del mapa
-    return () => {
-      map.remove();
-    };
-  }, []);
-
-  //Funcion que despliega el mapa
-  function Display_map() {
-    return (
-      <div>
-        <h4 id="map_tittle">Selecciona tu ubicación</h4>
-        <div
-          id="map"
-          style={{
-            height: "350px",
-            width: "100%",
-            marginBottom: "20px",
-          }}
-        ></div>
-      </div>
-    );
-  }
   const create_client = async () => {
-    if (!position) {
-      no_location_toast();
-      return;
-    }
-
+     
     try {
       const { client_name, lastname, email, password } = formik.values;
 
       const new_client = {
         name: client_name,
         lastname,
-        latitude: position.lat,
-        longitude: position.lng,
+  
       };
 
       const client_created = await Client_services.post_client(new_client);
@@ -211,7 +153,6 @@ const Registro_clientes = () => {
           margin="normal"
         />
 
-        {/* Botón de Enviar */}
         <Button
           color="primary"
           variant="contained"
@@ -222,8 +163,6 @@ const Registro_clientes = () => {
           Registrar
         </Button>
       </form>
-      <div className="map_container">{Display_map()}</div>
-      <ToastContainer />
     </div>
   );
 };
