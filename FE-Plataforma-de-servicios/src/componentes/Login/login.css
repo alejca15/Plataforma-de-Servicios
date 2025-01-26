@@ -45,10 +45,10 @@ body
     font-size: 16px;
     font-weight: bold;
     transition: color 0.3s;
-    color: #6a6969;
+    color: #394d3c;
   }
   
   .link:hover {
-    color: rgb(0, 0, 0);
-    text-decoration: underline;
+    color: #5c6d60;
+    text-decoration: solid;
   }
