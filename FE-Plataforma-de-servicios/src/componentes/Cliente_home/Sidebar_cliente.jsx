@@ -1,9 +1,10 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Search_cliente from "./search_cliente";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -34,7 +35,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
   };
 }
 
@@ -49,9 +50,9 @@ export default function Sidebar_cliente() {
     <Box
       sx={{
         flexGrow: 1,
-        bgcolor: 'background.paper',
-        display: 'flex',
-        height: '100vh', // Ajuste para que ocupe toda la altura de la ventana
+        bgcolor: "background.paper",
+        display: "flex",
+        height: "100vh", // Ajuste para que ocupe toda la altura de la ventana
       }}
     >
       <Tabs
@@ -61,14 +62,14 @@ export default function Sidebar_cliente() {
         aria-label="Vertical tabs example"
         sx={{
           borderRight: 1,
-          borderColor: 'divider',
-          height: '100%', // Asegura que los tabs se ajusten a toda la altura
-          display: 'flex',
-          flexDirection: 'column', // Los tabs estarán apilados verticalmente
-          justifyContent: 'flex-start', // Alineación al principio
+          borderColor: "divider",
+          height: "100%", // Asegura que los tabs se ajusten a toda la altura
+          display: "flex",
+          flexDirection: "column", // Los tabs estarán apilados verticalmente
+          justifyContent: "flex-start", // Alineación al principio
         }}
       >
-        <Tab label="Item One" {...a11yProps(0)} />
+        <Tab label="Servicios" {...a11yProps(0)} />
         <Tab label="Item Two" {...a11yProps(1)} />
         <Tab label="Item Three" {...a11yProps(2)} />
         <Tab label="Item Four" {...a11yProps(3)} />
@@ -77,7 +78,7 @@ export default function Sidebar_cliente() {
         <Tab label="Item Seven" {...a11yProps(6)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        Item One
+        <Search_cliente />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
@@ -100,4 +101,3 @@ export default function Sidebar_cliente() {
     </Box>
   );
 }
-
