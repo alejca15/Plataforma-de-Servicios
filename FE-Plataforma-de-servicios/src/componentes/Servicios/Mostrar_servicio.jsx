@@ -52,24 +52,29 @@ const Mostrar_servicio = () => {
     }
   };
 
+  // Validación y envío de datos al backend
   const handleSubmit = async () => {
+    // Verificar que los campos no estén vacíos
     if (!nombre || !precio) {
       setError("Todos los campos son obligatorios.");
       return;
     }
 
+    // Verificar que la ubicación esté seleccionada
     if (!position) {
       no_location_toast();
       return;
     }
 
+    // Validar que el precio sea un número positivo
     if (isNaN(precio) || precio <= 0) {
       setError("El precio debe ser un número positivo.");
       return;
     }
 
     try {
-      const url = "http://localhost:3000/services";
+      // Realizar la solicitud POST
+      const url = "http://localhost:3000/services"; // Asegúrate de que la URL esté correcta
       const response = await axios.post(url, {
         nombre,
         precio,
@@ -77,6 +82,7 @@ const Mostrar_servicio = () => {
         longitude: position.lng,
       });
 
+      // Verificar si la respuesta fue exitosa
       if (response.status === 201 || response.status === 200) {
         setSuccess("Servicio añadido correctamente.");
         success_toast();
@@ -90,9 +96,9 @@ const Mostrar_servicio = () => {
     }
   };
 
+  // Inicializar mapa y manejar la ubicación
   useEffect(() => {
     if (open && !mapInstance) {
-      // Inicializar el mapa cuando el modal esté abierto y no haya una instancia del mapa
       setTimeout(() => {
         const map = L.map("map").setView([9.9368, -84.0852], 8);
 
@@ -103,6 +109,7 @@ const Mostrar_servicio = () => {
 
         let marker;
 
+        // Manejar el evento de hacer clic en el mapa para seleccionar la ubicación
         map.on("click", function (e) {
           const { lat, lng } = e.latlng;
           setPosition({ lat, lng });
