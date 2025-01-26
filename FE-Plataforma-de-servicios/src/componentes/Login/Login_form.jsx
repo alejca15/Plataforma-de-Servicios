@@ -66,46 +66,26 @@ const Login_form = () => {
 
   return (
     <Container
-      className="login-container"
-      sx={{
-        marginTop: 8,
-        marginBottom: 8,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        borderRadius: 2,
-        bgcolor: "#ffffff",
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "100%",
-          maxWidth: 400,
-          bgcolor: "#777777",
-          padding: 4,
-          borderRadius: 2,
-        }}
-      >
-        <Typography
-          variant="h4"
-          component="h2"
-          gutterBottom
-          sx={{
-            marginBottom: 4,
-            color: "#ffffff",
-          }}
-        >
-          Login
-        </Typography>
+      className="login-container">
+
+        
         <form
           onSubmit={formik.handleSubmit}
           className="login-form"
-          style={{ width: "100%" }}
+          style={{backgroundColor: "#BFCCC2",
+          padding: "20px",
+          borderRadius: "8px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",}}
         >
+        <h2 className="form-title"
+            style={{
+              color: "white",
+              fontSize: "2.5rem", // Makes the title bigger
+              fontWeight: "bold",
+              fontFamily:"sans-serif"
+            }}>
+          Login
+        </h2>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -118,6 +98,10 @@ const Login_form = () => {
                 onBlur={formik.handleBlur}
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
+                sx={{
+                  backgroundColor: "white",
+                  borderRadius: "4px",
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -134,6 +118,10 @@ const Login_form = () => {
                   formik.touched.password && Boolean(formik.errors.password)
                 }
                 helperText={formik.touched.password && formik.errors.password}
+                sx={{
+                  backgroundColor: "white",
+                  borderRadius: "4px",
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -142,10 +130,12 @@ const Login_form = () => {
                 fullWidth
                 type="submit"
                 sx={{
-                  backgroundColor: "#333333",
+                  marginTop: "20px",
+                  backgroundColor: "#3F5543",
+                  color: "white",
                   "&:hover": {
-                    backgroundColor: "#111111",
-                  },
+                    backgroundColor: "#C1DFC7", 
+                  }
                 }}
               >
                 Submit
@@ -158,7 +148,7 @@ const Login_form = () => {
                 textAlign="center"
               >
                 <Link to="/provedores" className="link">
-                  Registrarse como Proovedor
+                  Registrarse como Provedor
                 </Link>
                 <Link to="/clientes" className="link">
                   Registrarse como Cliente
@@ -167,7 +157,6 @@ const Login_form = () => {
             </Grid>
           </Grid>
         </form>
-      </Box>
       <ToastContainer/>
     </Container>
   );
