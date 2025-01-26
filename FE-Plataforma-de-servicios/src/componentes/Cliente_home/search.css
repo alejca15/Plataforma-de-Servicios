@@ -99,13 +99,15 @@
 }
 
 .save-button {
-  background-color: #4caf50;
+  background-color: #143215;
   color: white;
+  width: 30%;
 }
 
 .exit-button {
-  background-color: #f44336;
+  background-color:#142b32 ;
   color: white;
+  width: 30%;
 }
 
 /* Media Queries */

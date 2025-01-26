@@ -16,7 +16,11 @@ const PORT = 3000;
 
 app.use(express.json()); // Middleware para parsear JSON
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173/',  // Reemplaza con la URL de tu frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Los métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization']  // Los encabezados permitidos
+}));
 
 // Probar la conexión con la base de datos
 sequelize
