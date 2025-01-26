@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import  Proveedor_registro from "../pages/Proveedor_registro";
 import  Clientes_Registro  from "../pages/Clientes_registro";
 
+
 const Rutas = () => {
   return (
     <>
@@ -11,6 +12,7 @@ const Rutas = () => {
         <Route path="/" element={<Login />} /> 
         <Route path="/provedores" element={<Proveedor_registro/>} /> 
         <Route path="/clientes" element={<Clientes_Registro/>} /> 
+ 
     </Routes>
     </>
   );
