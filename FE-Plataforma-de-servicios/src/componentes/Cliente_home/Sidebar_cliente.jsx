@@ -69,13 +69,34 @@ export default function Sidebar_cliente() {
           justifyContent: "flex-start", // Alineación al principio
         }}
       >
-        <Tab label="Servicios" {...a11yProps(0)} />
-        <Tab label="Item Two" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
-        <Tab label="Item Four" {...a11yProps(3)} />
-        <Tab label="Item Five" {...a11yProps(4)} />
-        <Tab label="Item Six" {...a11yProps(5)} />
-        <Tab label="Item Seven" {...a11yProps(6)} />
+        {[
+          "Servicios",
+          "Item Two",
+          "Item Three",
+          "Item Four",
+          "Item Five",
+          "Item Six",
+          "Item Seven",
+        ].map((label, index) => (
+          <Tab
+            key={index}
+            label={label}
+            {...a11yProps(index)}
+            sx={{
+              color: "black", 
+              "&.Mui-selected": {
+                color: "black", 
+                marginBottom: "10px",
+                fontWeight: "bold",
+              },
+              "&:hover": {
+                color: "gray",
+                backgroundColor: "action.hover", 
+              },
+
+            }}
+          />
+        ))}
       </Tabs>
       <TabPanel value={value} index={0}>
         <Search_cliente />
