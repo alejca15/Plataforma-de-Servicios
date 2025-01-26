@@ -9,6 +9,7 @@ import User_services from "../../services/User_services";
 import Provider_services from "../../services/Provider_services";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { Container, Typography } from "@mui/material";
 
 // Validaciones con Yup
 const validationSchema = yup.object({
@@ -27,8 +28,10 @@ const validationSchema = yup.object({
 });
 
 const Registro_provedor = () => {
-
   const navigate = useNavigate();
+
+   const user_added = () => toast.success("Usuario creado");
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -38,18 +41,18 @@ const Registro_provedor = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       post_user();
-      return navigate("/")
+      user_added();
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     },
   });
 
   const post_user = async () => {
     try {
       const { provider_name, email, password } = formik.values;
-
       const new_provider = {
         name: provider_name,
-        latitude: position.lat,
-        longitude: position.lng,
       };
 
       const provider_posted = await Provider_services.post_provider(
@@ -78,9 +81,26 @@ const Registro_provedor = () => {
   };
 
   return (
-    <div className="login-container">
-      <form onSubmit={formik.handleSubmit} className="login-form">
-        <h2 className="form-title">Registro </h2>
+    <Container className="login-container">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="login-form"
+        style={{
+          backgroundColor: "#BFCCC2",
+          padding: "20px",
+          borderRadius: "8px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <h2 className="form-title"
+        style={{
+          color: "white",
+          fontSize: "2.5rem", // Makes the title bigger
+          fontWeight: "bold",
+          fontFamily:"sans-serif"
+        }}>
+          Registro 
+        </h2>
 
         {/* Campo de Correo */}
         <TextField
@@ -94,6 +114,10 @@ const Registro_provedor = () => {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
           margin="normal"
+          sx={{
+            backgroundColor: "white",
+            borderRadius: "4px",
+          }}
         />
 
         {/* Campo de Contraseña */}
@@ -109,6 +133,10 @@ const Registro_provedor = () => {
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
           margin="normal"
+          sx={{
+            backgroundColor: "white",
+            borderRadius: "4px",
+          }}
         />
 
         {/* Campo de Nombre */}
@@ -122,24 +150,34 @@ const Registro_provedor = () => {
           onBlur={formik.handleBlur}
           error={formik.touched.name && Boolean(formik.errors.name)}
           helperText={formik.touched.name && formik.errors.name}
+          sx={{
+            backgroundColor: "white",
+            borderRadius: "4px",
+          }}
           margin="normal"
         />
 
         {/* Botón de Enviar */}
         <Button
-          color="primary"
+          
           variant="contained"
           fullWidth
           type="submit"
-          style={{ marginTop: "20px" }}
+          sx={{
+            marginTop: "20px",
+            backgroundColor: "#3F5543",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "#C1DFC7", 
+            },
+          }}
         >
           Enviar
         </Button>
       </form>
-    </div>
+      <ToastContainer/>
+    </Container>
   );
 };
 
-
 export default Registro_provedor;
-

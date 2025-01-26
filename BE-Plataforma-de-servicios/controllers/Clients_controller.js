@@ -7,7 +7,6 @@ const createClient = async (req, res) => {
     const newClient = await Clients.create({
       name,
       lastname,
-
     });
     return res.status(201).json({ client: newClient });
   } catch (error) {
