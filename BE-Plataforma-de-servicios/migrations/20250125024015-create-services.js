@@ -23,6 +23,14 @@ module.exports = {
         references:{
           model:"Providers",
           key:"id",
+        },
+        latitude: {
+          type: DataTypes.FLOAT,
+          allowNull: false,
+        },
+        longitude: {
+          type: DataTypes.FLOAT,
+          allowNull: false,
         }
       },
       createdAt: {
