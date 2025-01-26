@@ -5,8 +5,9 @@ const providers_routes = require("./routes/providers_routes");
 const clients_routes = require("./routes/clients_routes");
 const services_routes = require("./routes/services_routes");
 const messages_routes = require("./routes/messages_routes");
-const requests_routes=require("./routes/requests_routes")
-const contracts_routes=require("./routes/contracts_routes")
+const requests_routes=require("./routes/requests_routes");
+const contracts_routes=require("./routes/contracts_routes");
+const auth_routes=require("./routes/auth_routes")
 
 const cors = require("cors");
 
@@ -33,6 +34,7 @@ app.use("/services", services_routes);
 app.use("/messages", messages_routes);
 app.use("/requests", requests_routes);
 app.use("/contracts", contracts_routes);
+app.use("/auth", auth_routes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {

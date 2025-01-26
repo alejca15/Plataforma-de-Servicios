@@ -1,12 +1,16 @@
 const { Users } = require("../models");
+const bcrypt = require("bcrypt");
 
 // Crear un nuevo usuario
 const createUser = async (req, res) => {
   try {
     const { mail, password, rol, provider_id, client_id } = req.body;
+
+    const hashed_password= await bcrypt.hash(password,10);
+
     const newUser = await Users.create({
       mail,
-      password,
+      password:hashed_password,
       rol,
       provider_id,
       client_id,
@@ -54,6 +58,13 @@ const updateUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
+
+    if (user.password !== password) {
+      const hashed_password = await bcrypt.hash(password, 10);
+      password = hashed_password;
+      
+    }
+    
     user.mail = mail || user.mail;
     user.password = password || user.password;
     user.rol = rol || user.rol;
