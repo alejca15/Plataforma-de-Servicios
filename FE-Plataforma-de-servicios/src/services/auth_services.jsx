@@ -11,7 +11,7 @@ const post_login = async (user_data) => {
         });
         return response.data;
     } catch (error) {
-        console.error("Error posting athlete:", error);
+        console.error("Error getting token:", error);
         throw error;
     }
 };
