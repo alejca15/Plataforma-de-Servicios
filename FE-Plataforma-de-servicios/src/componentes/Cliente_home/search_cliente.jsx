@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "./search.css";
 
-const search_cliente = () => {
+const SearchCliente = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleInputFocus = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSave = () => {
+    console.log("Datos guardados");
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="contenedorSearch">
       <div className="textos">
@@ -9,12 +24,35 @@ const search_cliente = () => {
         <p>Obtenga cotizaciones gratuitas en minutos</p>
       </div>
       <div className="inputs">
-        <input type="text" placeholder="¿Qué servicio estás buscando?" />
-        <input type="text" placeholder="ubicación" />
-        <button>search</button>
+        <input
+          type="text"
+          placeholder="¿Qué servicio estás buscando?"
+          onFocus={handleInputFocus}
+        />
+        <input
+          type="text"
+          placeholder="ubicación"
+          onFocus={handleInputFocus}
+        />
+        <button>Search</button>
       </div>
+
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-card">
+           
+            <div className="modal-content">
+        
+            </div>
+            <div className="modal-actions">
+              <button className="save-button" onClick={handleSave}>Guardar</button>
+              <button className="exit-button" onClick={closeModal}>Salir</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default search_cliente;
+export default SearchCliente;
