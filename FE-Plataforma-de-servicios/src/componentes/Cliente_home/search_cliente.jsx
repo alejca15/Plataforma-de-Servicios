@@ -39,6 +39,10 @@ const SearchCliente = () => {
     setIsModalOpen(false);
   };
 
+  const display_card_services=()=>{
+  
+
+  }
   return (
     <div className="contenedorSearch">
       <div className="textos">
