@@ -208,6 +208,78 @@ const Registro_provedor = () => {
             overflow: "hidden",
             border: "1px solid #ccc",
           }}
+        ></div>
+      </div>
+    );
+  }
+
+  const post_user = async () => {
+    try {
+      const { provider_name, email, password } = formik.values;
+
+      const new_provider = {
+        name: provider_name,
+        latitude: position.lat,
+        longitude: position.lng,
+      };
+
+      const provider_posted = await Provider_services.post_provider(
+        new_provider
+      );
+      if (!provider_posted) {
+        console.error("Error al añadir proveedor");
+        return;
+      }
+      const new_user_id = provider_posted.provider.id;
+      const new_user = {
+        mail: email,
+        password: password,
+        rol: "Provider",
+        client_id: null,
+        provider_id: new_user_id,
+      };
+      const user_posted = await User_services.post_user(new_user);
+      if (!user_posted) {
+        return console.error(error);
+      }
+      console.log("Usuarios Posteados", user_posted);
+    } catch (error) {
+      console.error("Error en post_user:", error);
+    }
+  };
+
+  return (
+    <div className="login-container">
+      <form onSubmit={formik.handleSubmit} className="login-form">
+        <h2 className="form-title">Registro </h2>
+
+        {/* Campo de Correo */}
+        <TextField
+          fullWidth
+          id="email"
+          name="email"
+          label="Correo"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+          margin="normal"
+        />
+
+        {/* Campo de Contraseña */}
+        <TextField
+          fullWidth
+          id="password"
+          name="password"
+          label="Contraseña"
+          type="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+          margin="normal"
         />
         <ToastContainer />
       </Box>
