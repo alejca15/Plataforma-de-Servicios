@@ -28,8 +28,10 @@ const validationSchema = yup.object({
 });
 
 const Registro_provedor = () => {
-
   const navigate = useNavigate();
+
+   const user_added = () => toast.success("Usuario creado");
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -39,18 +41,18 @@ const Registro_provedor = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       post_user();
-      return navigate("/")
+      user_added();
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     },
   });
 
   const post_user = async () => {
     try {
       const { provider_name, email, password } = formik.values;
-
       const new_provider = {
         name: provider_name,
-        latitude: position.lat,
-        longitude: position.lng,
       };
 
       const provider_posted = await Provider_services.post_provider(
@@ -173,10 +175,9 @@ const Registro_provedor = () => {
           Enviar
         </Button>
       </form>
+      <ToastContainer/>
     </Container>
   );
 };
 
-
 export default Registro_provedor;
-

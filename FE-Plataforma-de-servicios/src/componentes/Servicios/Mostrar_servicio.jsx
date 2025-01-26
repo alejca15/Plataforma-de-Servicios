@@ -76,12 +76,12 @@ const Mostrar_servicio = () => {
       // Realizar la solicitud POST
       const url = "http://localhost:3000/services"; // Asegúrate de que la URL esté correcta
       const response = await axios.post(url, {
-        nombre,
-        precio,
+        name:nombre,
+        price:precio,
         latitude: position.lat,
         longitude: position.lng,
       });
-
+      console.log(response); // Imprime la respuesta completa del servidor
       // Verificar si la respuesta fue exitosa
       if (response.status === 201 || response.status === 200) {
         setSuccess("Servicio añadido correctamente.");
@@ -91,6 +91,7 @@ const Mostrar_servicio = () => {
         setPrecio("");
         setPosition(null); // Reiniciar posición después de enviar
       }
+     
     } catch (err) {
       setError("Hubo un error al añadir el servicio.");
     }
