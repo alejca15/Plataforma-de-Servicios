@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Tabs, Tab, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom"; // Importa el hook useNavigate
+import Mostrar_servicio from "../Servicios/Mostrar_servicio";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,7 +49,7 @@ const Proveedor_Pagina = () => {
     if (newValue === 0) {
       navigate("/servicios"); // Ruta para "Servicios"
     } else if (newValue === 1) {
-      navigate("/solicitudes"); // Ruta para "Solicitudes"
+      navigate("Solicitudes"); // Ruta para "Solicitudes"
     } else if (newValue === 2) {
       navigate("/contratos"); // Ruta para "Contratos"
     } else if (newValue === 3) {
@@ -81,8 +83,8 @@ const Proveedor_Pagina = () => {
 
       {/* Contenido de cada Tab */}
       <TabPanel value={value} index={0}>
-        <Typography variant="h6">Servicios</Typography>
-        <p>Gestión de servicios ofrecidos por la plataforma.</p>
+
+
       </TabPanel>
 
       <TabPanel value={value} index={1}>
@@ -99,6 +101,9 @@ const Proveedor_Pagina = () => {
         <Typography variant="h6">Usuario</Typography>
         <p>Configuración y detalles del usuario.</p>
       </TabPanel>
+      <div>
+         <Mostrar_servicio/>
+      </div>
     </Box>
   );
 };

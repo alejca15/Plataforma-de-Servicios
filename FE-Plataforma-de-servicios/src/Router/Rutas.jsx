@@ -6,6 +6,7 @@ import  Clientes_Registro  from "../pages/Clientes_registro";
 import Pagina_proveedor from "../pages/Pagina_proveedor";
 import Servicios from "../pages/Servicios";
 
+
 const Rutas = () => {
   return (
     <>
