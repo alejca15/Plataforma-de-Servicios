@@ -195,7 +195,7 @@ const   Registro_clientes = () => {
             backgroundColor: "#3F5543",
             color: "white",
             "&:hover": {
-              backgroundColor: "#98cba2", 
+              backgroundColor: "#C1DFC7", 
             },
           }}          
         >
