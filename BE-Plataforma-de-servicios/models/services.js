@@ -25,7 +25,6 @@ module.exports = (sequelize) => {
           model: "Providers",
           key: "id",
         },
-        
       },
       latitude: {
         type: DataTypes.FLOAT,

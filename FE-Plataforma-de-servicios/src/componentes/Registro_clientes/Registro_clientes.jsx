@@ -4,7 +4,7 @@ import * as yup from "yup";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import "./clientes_registro.css";
-import L from "leaflet";
+
 import "leaflet/dist/leaflet.css";
 import { useState } from "react";
 import Client_services from "../../services/Client_services";
@@ -44,15 +44,11 @@ const   Registro_clientes = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      if (!position) {
-        no_location_toast();
-        return;
-      }
       create_client();
       user_added();
       setTimeout(() => {
         navigate("/");
-      }, 3000);
+      }, 2000);
     },
   });
 
@@ -64,7 +60,6 @@ const   Registro_clientes = () => {
       const new_client = {
         name: client_name,
         lastname,
-  
       };
 
       const client_created = await Client_services.post_client(new_client);
@@ -162,6 +157,7 @@ const   Registro_clientes = () => {
         >
           Registrar
         </Button>
+        <ToastContainer/>
       </form>
     </div>
   );
