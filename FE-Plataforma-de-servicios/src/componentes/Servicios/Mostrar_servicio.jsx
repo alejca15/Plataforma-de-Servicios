@@ -12,6 +12,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { jwtDecode } from "jwt-js-decode";
 
 const style = {
   position: "absolute",
@@ -34,6 +35,13 @@ const Mostrar_servicio = () => {
   const [position, setPosition] = useState(null);
   const [mapInstance, setMapInstance] = useState(null); // Guardar la instancia del mapa
 
+   //Obtenemos el valor del Token
+   const Encrypted_token = sessionStorage.getItem("Token");
+   const Decoded_token = jwtDecode(Encrypted_token);
+   const Token_JSON = Decoded_token.payload;
+   const logged_user_id=Token_JSON.Table_id;
+   const Rol = Token_JSON.Rol;
+
   const no_location_toast = () => toast.error("Selecciona una ubicación");
   const success_toast = () => toast.success("Ubicación guardada correctamente");
 
@@ -54,6 +62,8 @@ const Mostrar_servicio = () => {
 
   // Validación y envío de datos al backend
   const handleSubmit = async () => {
+    console.log(Token_JSON);
+    
     // Verificar que los campos no estén vacíos
     if (!nombre || !precio) {
       setError("Todos los campos son obligatorios.");
@@ -78,6 +88,7 @@ const Mostrar_servicio = () => {
       const response = await axios.post(url, {
         name:nombre,
         price:precio,
+        provider_id:logged_user_id  ,
         latitude: position.lat,
         longitude: position.lng,
       });
