@@ -3,10 +3,11 @@ import Login from "../pages/Login";
 import { Routes, Route } from 'react-router-dom';
 import  Proveedor_registro from "../pages/Proveedor_registro";
 import  Clientes_Registro  from "../pages/Clientes_registro";
-import Pagina_proveedor from "../pages/Pagina_proveedor";
-import Servicios from "../pages/Servicios";
+import  Pagina_proveedor from "../pages/Pagina_proveedor";
+import  Servicios from "../pages/Servicios";
 import  Clientes_page from "../pages/Cliente_home";
-
+import  Usuario from "../pages/Usuario";
+import Solicitud from "../pages/Solicitud";
 
 const Rutas = () => {
   return (
@@ -18,6 +19,8 @@ const Rutas = () => {
         <Route path="/pageprove" element={<Pagina_proveedor/>} /> 
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/homecliente" element={<Clientes_page />} />
+        <Route path="/usuarios" element={<Usuario />} />
+        <Route path="/solicitudes" element={<Solicitud />} />
     </Routes>
     </>
   );
