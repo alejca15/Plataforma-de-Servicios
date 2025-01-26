@@ -1,8 +1,30 @@
 import React, { useState } from "react";
 import "./search.css";
+import Services_services from "../../services/Services_services"
+import { useEffect } from "react";
 
 const SearchCliente = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [Services_loaded,setServices_loaded]=useState([])
+
+
+  
+   //useEffect para los candidatos
+   useEffect(() => {
+    const fetch_services = async () => {
+      try {
+        const response = await Services_services.getServices();
+        if (!response) {
+          return console.log("No se obtuvieron los servicios");
+        }
+        setServices_loaded(response); 
+      } catch (error) {
+        console.error("Error al obtener los candidatos:", error);
+      }
+    };
+    fetch_services(); //Llama a la función
+  }, []);
+
 
   const handleInputFocus = () => {
     setIsModalOpen(true);
@@ -35,8 +57,11 @@ const SearchCliente = () => {
           onFocus={handleInputFocus}
         />
         <button>Search</button>
+       
       </div>
-
+      <div>
+          
+        </div>
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-card">
