@@ -1,6 +1,3 @@
-
-
-
 import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -118,12 +115,12 @@ const Login_form = () => {
               </Button>
             </Grid>
             <Grid item xs={12}>
-              <Box display="flex" justifyContent="space-between">
+              <Box display="flex" justifyContent="space-around" textAlign="center">
                 <Link to="/provedores" className="link">
-                  Ir a Proveedores
+                  Registrarse como Proovedor
                 </Link>
                 <Link to="/clientes" className="link">
-                  Ir a Clientes
+                  Registrarse como Cliente
                 </Link>
               </Box>
             </Grid>
