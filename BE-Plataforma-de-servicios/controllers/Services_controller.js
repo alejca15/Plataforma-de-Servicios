@@ -19,20 +19,14 @@ const createService = async (req, res) => {
 // Obtener todos los servicios
 const getAllServices = async (req, res) => {
   try {
-    const services = await Services.findAll({
-      include: [
-        {
-          model: sequelize.models.Providers,
-          attributes: ['id', 'name']
-        }
-      ]
-    });
+    const services = await Services.findAll();
     return res.status(200).json(services);
   } catch (error) {
     console.error("Error al obtener los servicios:", error);
-    return res.status(500).json({ message: 'Error al obtener los servicios', error });
+    return res.status(500).json({ message: "Error al obtener los servicios", error });
   }
 };
+
 
 // Obtener un servicio por ID
 const getServiceById = async (req, res) => {
