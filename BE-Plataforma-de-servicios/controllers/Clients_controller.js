@@ -3,12 +3,11 @@ const { Clients } = require('../models'); // Asegúrate de que la ruta sea corre
 // Crear un nuevo cliente
 const createClient = async (req, res) => {
   try {
-    const { name, lastname, latitude, longitude } = req.body;
+    const { name, lastname } = req.body;
     const newClient = await Clients.create({
       name,
       lastname,
-      latitude,
-      longitude,
+
     });
     return res.status(201).json({ client: newClient });
   } catch (error) {
@@ -47,15 +46,13 @@ const getClientById = async (req, res) => {
 const updateClient = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, lastname, latitude, longitude } = req.body;
+    const { name, lastname } = req.body;
     const client = await Clients.findByPk(id);
     if (!client) {
       return res.status(404).json({ message: 'Cliente no encontrado' });
     }
     client.name = name || client.name;
     client.lastname = lastname || client.lastname;
-    client.latitude = latitude || client.latitude;
-    client.longitude = longitude || client.longitude;
 
     await client.save();
     return res.status(200).json({ client });
