@@ -3,11 +3,9 @@ const { Providers } = require('../models');
 // Crear un nuevo proveedor
 const createProvider = async (req, res) => {
   try {
-    const { name, latitude, longitude } = req.body;
+    const { name } = req.body;
     const newProvider = await Providers.create({
       name,
-      latitude,
-      longitude,
     });
     return res.status(201).json({ provider: newProvider });
   } catch (error) {
@@ -46,14 +44,12 @@ const getProviderById = async (req, res) => {
 const updateProvider = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, latitude, longitude } = req.body;
+    const { name } = req.body;
     const provider = await Providers.findByPk(id);
     if (!provider) {
       return res.status(404).json({ message: 'Proveedor no encontrado' });
     }
     provider.name = name || provider.name;
-    provider.latitude = latitude || provider.latitude;
-    provider.longitude = longitude || provider.longitude;
 
     await provider.save();
     return res.status(200).json({ provider });
