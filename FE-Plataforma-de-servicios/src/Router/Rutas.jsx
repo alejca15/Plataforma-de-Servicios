@@ -6,6 +6,7 @@ import  Clientes_Registro  from "../pages/Clientes_registro";
 import Pagina_proveedor from "../pages/Pagina_proveedor";
 import Servicios from "../pages/Servicios";
 import  Clientes_page from "../pages/Cliente_home";
+import Listado_contratos from "../componentes/Pagina_Proveedor/Contrato";
 
 
 const Rutas = () => {
@@ -18,6 +19,8 @@ const Rutas = () => {
         <Route path="/pageprove" element={<Pagina_proveedor/>} /> 
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/homecliente" element={<Clientes_page />} />
+        <Route path="/contratos" element={<Listado_contratos/>} />
+
     </Routes>
     </>
   );
