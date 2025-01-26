@@ -63,7 +63,7 @@ const Registro_provedor = () => {
       const new_user = {
         mail: email,
         password: password,
-        rol: "Proveedor",
+        rol: "Provider",
         client_id: null,
         provider_id: new_user_id,
       };
@@ -140,4 +140,6 @@ const Registro_provedor = () => {
   );
 };
 
+
 export default Registro_provedor;
+

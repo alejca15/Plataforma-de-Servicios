@@ -76,7 +76,7 @@ const   Registro_clientes = () => {
       const new_user = {
         mail: email,
         password,
-        rol: "Cliente",
+        rol: "Client",
         client_id: client_created.client.id,
         provider_id: null,
       };
