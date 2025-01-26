@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Tabs, Tab, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom"; // Importa el hook useNavigate
-import Mostrar_servicio from "../Servicios/Mostrar_servicio";
+ 
 
 
 function TabPanel(props) {
@@ -38,7 +38,7 @@ function a11yProps(index) {
   };
 }
 
-const Proveedor_Pagina = () => {
+const Solicitudes = () => {
   const [value, setValue] = useState(0);
   const navigate = useNavigate(); // Hook para redirigir
 
@@ -80,32 +80,11 @@ const Proveedor_Pagina = () => {
         <Tab label="Contratos" {...a11yProps(2)} />
         <Tab label="Usuario" {...a11yProps(3)} />
       </Tabs>
-
-      {/* Contenido de cada Tab */}
-      <TabPanel value={value} index={0}>
-
-
-      </TabPanel>
-
-      <TabPanel value={value} index={1}>
-        <Typography variant="h6">Solicitudes</Typography>
-        <p>Gestión de solicitudes pendientes.</p>
-      </TabPanel>
-
-      <TabPanel value={value} index={2}>
-        <Typography variant="h6">Contratos</Typography>
-        <p>Administración de contratos firmados.</p>
-      </TabPanel>
-
-      <TabPanel value={value} index={3}>
-        <Typography variant="h6">Usuario</Typography>
-        <p>Configuración y detalles del usuario.</p>
-      </TabPanel>
+        h
       <div>
-         <Mostrar_servicio/>
       </div>
     </Box>
   );
 };
 
-export default Proveedor_Pagina;
+export default Solicitudes;

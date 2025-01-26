@@ -36,11 +36,11 @@ const Mostrar_servicio = () => {
   const [mapInstance, setMapInstance] = useState(null); // Guardar la instancia del mapa
 
    //Obtenemos el valor del Token
-   const Encrypted_token = sessionStorage.getItem("Token");
-   const Decoded_token = jwtDecode(Encrypted_token);
-   const Token_JSON = Decoded_token.payload;
-   const logged_user_id=Token_JSON.Table_id;
-   const Rol = Token_JSON.Rol;
+  //  const Encrypted_token = sessionStorage.getItem("Token");
+  //  const Decoded_token = jwtDecode(Encrypted_token);
+  //  const Token_JSON = Decoded_token.payload;
+  //  const logged_user_id=Token_JSON.Table_id;
+  //  const Rol = Token_JSON.Rol;
 
   const no_location_toast = () => toast.error("Selecciona una ubicación");
   const success_toast = () => toast.success("Ubicación guardada correctamente");
@@ -62,7 +62,7 @@ const Mostrar_servicio = () => {
 
   // Validación y envío de datos al backend
   const handleSubmit = async () => {
-    console.log(Token_JSON);
+    
     
     // Verificar que los campos no estén vacíos
     if (!nombre || !precio) {
