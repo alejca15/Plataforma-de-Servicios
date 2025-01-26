@@ -34,6 +34,9 @@ const Registro_clientes = () => {
   const [position, setPosition] = useState(null);
 
   const no_location_toast = () => toast.error("Selecciona una ubicación");
+  const user_added = () => toast.success("Usuario creado");
+
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -51,6 +54,10 @@ const Registro_clientes = () => {
         return;
       }
       create_client();
+      user_added();
+      setTimeout(() => {
+        navigate("/");
+      }, 3000); 
     },
   });
 
@@ -102,25 +109,31 @@ const Registro_clientes = () => {
       </div>
     );
   }
-
   const create_client = async () => {
-    console.log("Entre a la funcion");
+    if (!position) {
+      no_location_toast();
+      return;
+    }
 
     try {
+      const { client_name, lastname, email, password } = formik.values;
+
       const new_client = {
         name: client_name,
         lastname,
         latitude: position.lat,
         longitude: position.lng,
       };
+
       const client_created = await Client_services.post_client(new_client);
       if (!client_created) {
-        return console.error(error);
+        console.error("Error al añadir cliente");
+        return;
       }
 
       const new_user = {
         mail: email,
-        password: password,
+        password,
         rol: "Cliente",
         client_id: client_created.client.id,
         provider_id: null,
@@ -128,10 +141,13 @@ const Registro_clientes = () => {
 
       const user_posted = await User_services.post_user(new_user);
       if (!user_posted) {
-        return console.error(error);
+        console.error("Error al crear usuario");
+        return;
       }
+
+      console.log("Usuarios Posteados", user_posted);
     } catch (error) {
-      console.error(error);
+      console.error("Error en la creación del cliente o usuario:", error);
     }
   };
 
@@ -175,7 +191,9 @@ const Registro_clientes = () => {
           value={formik.values.client_name}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.touched.client_name && Boolean(formik.errors.client_name)}
+          error={
+            formik.touched.client_name && Boolean(formik.errors.client_name)
+          }
           helperText={formik.touched.client_name && formik.errors.client_name}
           margin="normal"
         />
