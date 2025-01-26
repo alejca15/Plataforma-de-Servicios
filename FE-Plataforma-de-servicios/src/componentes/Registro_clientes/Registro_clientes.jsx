@@ -11,6 +11,7 @@ import Client_services from "../../services/Client_services";
 import User_services from "../../services/User_services";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { Container } from "@mui/material";
 
 const validationSchema = yup.object({
   email: yup
@@ -94,9 +95,25 @@ const   Registro_clientes = () => {
   };
 
   return (
-    <div className="form-container">
-      <form onSubmit={formik.handleSubmit} className="user-form">
-        <h2 className="form-title">Registro</h2>
+    <Container className="form-container">
+      <form onSubmit={formik.handleSubmit} 
+      className="user-form"
+      style={{
+        backgroundColor: "#BFCCC2",
+        padding: "20px",
+        borderRadius: "8px",
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      }}     
+      >
+      <h2 className="form-title"
+        style={{
+          color: "white",
+          fontSize: "2.5rem", // Makes the title bigger
+          fontWeight: "bold",
+          fontFamily:"sans-serif"
+        }}>
+          Registro 
+        </h2>
 
         <TextField
           fullWidth
@@ -109,6 +126,10 @@ const   Registro_clientes = () => {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
           margin="normal"
+          sx={{
+            backgroundColor: "white",
+            borderRadius: "4px",
+          }}          
         />
 
         <TextField
@@ -123,6 +144,10 @@ const   Registro_clientes = () => {
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
           margin="normal"
+          sx={{
+            backgroundColor: "white",
+            borderRadius: "4px",
+          }}
         />
 
         <TextField
@@ -138,6 +163,10 @@ const   Registro_clientes = () => {
           }
           helperText={formik.touched.client_name && formik.errors.client_name}
           margin="normal"
+          sx={{
+            backgroundColor: "white",
+            borderRadius: "4px",
+          }}
         />
 
         <TextField
@@ -151,19 +180,29 @@ const   Registro_clientes = () => {
           error={formik.touched.lastname && Boolean(formik.errors.lastname)}
           helperText={formik.touched.lastname && formik.errors.lastname}
           margin="normal"
+          sx={{
+            backgroundColor: "white",
+            borderRadius: "4px",
+          }}
         />
 
         <Button
-          color="primary"
           variant="contained"
           fullWidth
           type="submit"
-          style={{ marginTop: "20px" }}
+          sx={{
+            marginTop: "20px",
+            backgroundColor: "#3F5543",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "#98cba2", 
+            },
+          }}          
         >
           Registrar
         </Button>
       </form>
-    </div>
+    </Container>
   );
 };
 
